@@ -1,0 +1,27 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Simple frontend project for Hexlet course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/KorotchenkoSV/frontend-project-12.git"
+  },
+  "author": "KorotchenkoSV",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/korotchenkosv/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/korotchenkosv/frontend-project-12#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "globals": "^17.4.0"
+  }
+}
