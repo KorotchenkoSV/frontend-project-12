@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "cd frontend && npm run build",
-    "start": "cd frontend && npm run start"
+    "start": "npx serve -s ./frontend/dist -p 10000"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,9 @@
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "globals": "^17.6.0"
+    "globals": "^17.6.0",
+    "semver": "^7.5.4",
+    "serve": "^14.2.6"
   },
   "dependencies": {
     "@hexlet/chat-server": "^2.0.4",
