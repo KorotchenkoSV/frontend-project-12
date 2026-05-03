@@ -1,120 +1,67 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import ModalRoot from '@components/Modal/ModalRoot'
+import { addChannel, removeChannel, renameChannel } from '@slices/channelsSlice'
+import { addMessage } from '@slices/messagesSlice'
+import { selectIsAuthenticated } from '@store/selectors'
+import { ROUTES } from '@utils/routes'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+import NotFoundPage from './pages/NotFoundPage'
+import SignupPage from './pages/SignupPage'
+import socket from './socket'
 
-function App() {
-  const [count, setCount] = useState(0)
+const PrivateRoute = ({ children }) => {
+  const isAuthenticated = useSelector(selectIsAuthenticated)
+  return isAuthenticated ? children : <Navigate to={ROUTES.LOGIN} />
+}
+
+const App = () => {
+  const dispatch = useDispatch()
+  const isAuthenticated = useSelector(selectIsAuthenticated)
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      socket.disconnect()
+      return
+    }
+
+    socket.connect()
+
+    const handleNewMessage = message => dispatch(addMessage(message))
+    const handleNewChannel = channel => dispatch(addChannel(channel))
+    const handleRemoveChannel = ({ id }) => dispatch(removeChannel(id))
+    const handleRenameChannel = channel => dispatch(renameChannel(channel))
+
+    socket.on('newMessage', handleNewMessage)
+    socket.on('newChannel', handleNewChannel)
+    socket.on('removeChannel', handleRemoveChannel)
+    socket.on('renameChannel', handleRenameChannel)
+
+    return () => {
+      socket.off('newMessage', handleNewMessage)
+      socket.off('newChannel', handleNewChannel)
+      socket.off('removeChannel', handleRemoveChannel)
+      socket.off('renameChannel', handleRenameChannel)
+      socket.disconnect()
+    }
+  }, [isAuthenticated, dispatch])
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path={ROUTES.HOME} element={<PrivateRoute><HomePage /></PrivateRoute>} />
+        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
+        <Route path={ROUTES.NOT_FOUND} element={<NotFoundPage />} />
+      </Routes>
+      <ModalRoot />
+      <ToastContainer position="top-right" autoClose={5000} closeOnClick />
+    </BrowserRouter>
   )
 }
 
