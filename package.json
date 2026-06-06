@@ -1,0 +1,43 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Simple frontend project for Hexlet course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "cd frontend && npm run build",
+    "start": "npx serve -s ./frontend/dist -p 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/KorotchenkoSV/frontend-project-12.git"
+  },
+  "author": "KorotchenkoSV",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/korotchenkosv/frontend-project-12/issues"
+  },
+  "homepage": "https://github.com/korotchenkosv/frontend-project-12#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.39.4",
+    "eslint": "^8.57.1",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "globals": "^17.6.0",
+    "semver": "^7.5.4",
+    "serve": "^14.2.6"
+  },
+  "dependencies": {
+    "@hexlet/chat-server": "^2.0.4",
+    "@rollbar/react": "^1.0.0",
+    "bootstrap": "^5.3.8",
+    "i18next": "^26.0.8",
+    "react-i18next": "^17.0.6",
+    "react-redux": "^9.2.0",
+    "redux": "^5.0.1"
+  }
+}
