@@ -6,7 +6,7 @@ build:
 	npm run build
 
 start:
-	./node_modules/.bin/serve -s ./frontend/dist -p 10000
+	cd frontend && npm run start
 
 lint:
 	npm run lint

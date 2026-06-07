@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "cd frontend && npm run build",
-    "start": "npx serve -s ./frontend/dist -p 10000"
+    "start": "cd frontend && npm run start"
   },
   "repository": {
     "type": "git",

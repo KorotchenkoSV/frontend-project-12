@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "npx start-server -s ./dist -a 0.0.0.0 -p 3000",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hexlet/chat-server": "^2.0.4",
     "@reduxjs/toolkit": "^2.11.2",
     "@rollbar/react": "^1.0.0",
     "axios": "^1.13.5",
