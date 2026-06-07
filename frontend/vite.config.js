@@ -12,12 +12,12 @@ export default defineConfig({
     proxy: {
       // Проксируем запросы к API
       '/api': {
-        target: 'http://localhost:5001',
+        target: 'http://localhost:3000',
         changeOrigin: true,
       },
       // Проксируем WebSocket соединения
       '/socket.io': {
-        target: 'ws://localhost:5001',
+        target: 'ws://localhost:3000',
         ws: true,
         rewriteWsOrigin: true,
       },
