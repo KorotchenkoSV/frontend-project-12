@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "start": "npx start-server -s ./dist -a 0.0.0.0 -p 3000",
+    "start": "npx start-server -s ./dist -a 0.0.0.0",
     "lint": "eslint .",
     "preview": "vite preview"
   },
