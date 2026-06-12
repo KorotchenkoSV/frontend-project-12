@@ -5,7 +5,7 @@
 
 Ознакомиться с работающей версией приложения можно по ссылке:
 
-[Ссылка на приложение](https://frontend-project-12-rqbe.onrender.com)
+🌐 **Демо:** [Открыть приложение](https://frontend-project-12-production-3768.up.railway.app)
 
 ## Установка:
 
